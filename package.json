@@ -1,5 +1,7 @@
 {
   "license": "MIT",
+  "repository": "https://github.com/JFrankfurt/web3-introduction",
+  "description": "a brief introduction to using ethereum on the web",
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",
     "@babel/plugin-proposal-class-properties": "^7.0.0-beta.46",
@@ -22,9 +24,9 @@
     "html-webpack-plugin": "^3.2.0",
     "truffle": "^4.1.8",
     "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.7.0",
+    "webpack": "^4.8.3",
     "webpack-dev-middleware": "^3.1.3",
-    "webpack-hot-middleware": "^2.22.1",
+    "webpack-hot-middleware": "^2.22.2",
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
@@ -34,7 +36,7 @@
     "express": "^4.16.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-hot-loader": "^4.1.2",
+    "react-hot-loader": "^4.1.3",
     "react-router-dom": "^4.2.2",
     "truffle-contract": "^3.0.5"
   },
