@@ -12,24 +12,48 @@ export class UseTutorial extends Component {
   componentDidUpdate() {
     if (!this.state.hasMM && this.props.eth && !this.state.hasMetaMask
       && window.web3.currentProvider.isMetaMask) {
+      console.log(this.state)
       this.setState({hasMetaMask: true})
     }
   }
 
   render() {
-    const web3Routes = []
+    console.log(this.state)
+    const web3Routes = [
+      <Route path='/basics/you-need-MetaMask' key={`route-${0}`}
+             render={() => <YouNeedMetaMask {...this.props} hasMetaMask={this.state.hasMetaMask}/>}/>
+    ]
     if (this.state.hasMetaMask) {
-      web3Routes.push(<Route path='/basics/why' render={() => <Why {...this.props} />}/>)
-      web3Routes.push(<Route path='/basics/how' render={() => <How {...this.props} />}/>)
-      web3Routes.push(<Route path='/basics/eth' render={() => <Eth {...this.props} />}/>)
-      web3Routes.push(<Route path='/basics/do' render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/basics/why' key={`route-${web3Routes.length}`}
+                             render={() => <Why {...this.props} />}/>)
+      web3Routes.push(<Route path='/basics/how' key={`route-${web3Routes.length}`}
+                             render={() => <How {...this.props} />}/>)
+      web3Routes.push(<Route path='/basics/eth' key={`route-${web3Routes.length}`}
+                             render={() => <Eth {...this.props} />}/>)
+      web3Routes.push(<Route path='/basics/do' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/transactions' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/tokens' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/smart-contracts' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/gas' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/signing' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/testnet' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+      web3Routes.push(<Route path='/advanced/security' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
+    } else {
+      web3Routes.push(<Route path='/advanced/security' key={`route-${web3Routes.length}`}
+                             render={() => <Do {...this.props} />}/>)
     }
     return (
       <div className={css(styles.root)}>
         <Switch>
-          <Route path='/basics/you-need-MetaMask'
-                 render={() => <YouNeedMetaMask {...this.props} hasMetaMask={this.state.hasMetaMask}/>}/>
-          {web3Routes.map(r => r)}
+          {web3Routes}
         </Switch>
       </div>
     )

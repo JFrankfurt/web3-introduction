@@ -54,15 +54,15 @@ export class Nav extends Component {
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/advanced/tokens'>
-                Tokens sub-accounts
+                       to='/advanced/smart-contracts'>
+                Smart contracts are programs
               </NavLink>
             </li>
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/advanced/smart-contracts'>
-                Smart contracts are programs
+                       to='/advanced/tokens'>
+                Tokens sub-accounts
               </NavLink>
             </li>
             <li>
