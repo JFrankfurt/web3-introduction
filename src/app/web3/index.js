@@ -16,7 +16,6 @@ export class WithWeb3 extends Component {
 
   async componentDidMount() {
     try {
-      // let contractDefinition = undefined // todo: add an actual contract
       const eth = await getWeb3()
       const accounts = await getAccounts(eth)
       // const contract = await getContract(eth, contractDefinition)

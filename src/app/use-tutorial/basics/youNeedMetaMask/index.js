@@ -2,7 +2,7 @@ import React from 'react'
 import {css} from 'aphrodite'
 import {styles} from './styles'
 
-export const YouNeedMetaMask = () =>
+export const YouNeedMetaMask = ({hasMetaMask}) =>
   <div className={css(styles.root)}>
-    test
+    {hasMetaMask && hasMetaMask.toString()}
   </div>

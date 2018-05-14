@@ -4,5 +4,5 @@ import {styles} from './styles'
 
 export const Do = () =>
   <div className={css(styles.root)}>
-    test
+    Do test
   </div>
