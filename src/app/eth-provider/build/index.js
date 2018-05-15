@@ -3,6 +3,7 @@ import "core-js/modules/es6.symbol";
 import "core-js/modules/es6.promise";
 import "core-js/modules/es6.object.set-prototype-of";
 import "core-js/modules/es6.object.define-property";
+import "core-js/modules/es6.array.map";
 import "regenerator-runtime/runtime";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -27,33 +28,31 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import { Component } from 'react'; // import getContract from './getContract'
+import React, { Component, Fragment } from 'react'; // import getContract from './getContract'
 
 import getAccounts from './getAccounts';
 import getWeb3 from './getWeb3';
-export var WithWeb3 =
+export var EthProvider =
 /*#__PURE__*/
 function (_Component) {
-  function WithWeb3() {
+  function EthProvider() {
     var _getPrototypeOf2;
 
     var _temp, _this;
 
-    _classCallCheck(this, WithWeb3);
+    _classCallCheck(this, EthProvider);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(WithWeb3)).call.apply(_getPrototypeOf2, [this].concat(args))), _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
-      error: null,
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(EthProvider)).call.apply(_getPrototypeOf2, [this].concat(args))), _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
       eth: null,
-      accounts: null,
-      contract: null
+      accounts: null
     }), _temp));
   }
 
-  _createClass(WithWeb3, [{
+  _createClass(EthProvider, [{
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator(
@@ -75,12 +74,10 @@ function (_Component) {
 
               case 6:
                 accounts = _context.sent;
-                // const contract = await getContract(eth, contractDefinition)
                 this.setState({
                   eth: eth,
                   accounts: accounts
-                }); //, contract})
-
+                });
                 _context.next = 13;
                 break;
 
@@ -106,18 +103,21 @@ function (_Component) {
     value: function render() {
       var _this$state = this.state,
           eth = _this$state.eth,
-          accounts = _this$state.accounts,
-          contract = _this$state.contract,
-          error = _this$state.error;
-      return this.props.children;
+          accounts = _this$state.accounts;
+      return React.createElement(Fragment, null, React.Children.map(this.props.children, function (child) {
+        return React.cloneElement(child, {
+          eth: eth,
+          accounts: accounts
+        });
+      }));
     }
   }]);
 
-  _inherits(WithWeb3, _Component);
+  _inherits(EthProvider, _Component);
 
-  return WithWeb3;
+  return EthProvider;
 }(Component);
 
-_defineProperty(WithWeb3, "defaultProps", {
+_defineProperty(EthProvider, "defaultProps", {
   network: 'Rinkeby'
 });

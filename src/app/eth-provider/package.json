@@ -6,11 +6,14 @@
   "scripts": {
     "watch": "watch \"npm run build\" src",
     "build": "babel src -d build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "npm test -- --jest",
+    "prepublish": "npm run build",
+    "release": "np"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JFrankfurt/EthProvider.git"
+    "url": "git+https://github.com/JFrankfurt/eth-provider.git"
   },
   "keywords": [
     "ethereum",
@@ -21,9 +24,9 @@
   "author": "https://github.com/JFrankfurt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JFrankfurt/EthProvider/issues"
+    "url": "https://github.com/JFrankfurt/eth-provider/issues"
   },
-  "homepage": "https://github.com/JFrankfurt/EthProvider#readme",
+  "homepage": "https://github.com/JFrankfurt/eth-provider#readme",
   "dependencies": {
     "ethjs": "^0.4.0",
     "react": "^16.3.2",
@@ -35,6 +38,7 @@
     "@babel/plugin-proposal-class-properties": "^7.0.0-beta.47",
     "@babel/preset-env": "^7.0.0-beta.47",
     "@babel/preset-react": "^7.0.0-beta.47",
+    "np": "^2.20.1",
     "watch": "^1.0.2"
   }
 }

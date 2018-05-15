@@ -1,32 +1,28 @@
-import {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 // import getContract from './getContract'
 import getAccounts from './getAccounts'
 import getWeb3 from './getWeb3'
 
-export class WithWeb3 extends Component {
+export class EthProvider extends Component {
   static defaultProps = {
     network: 'Rinkeby',
   }
-  state = {
-    error: null,
-    eth: null,
-    accounts: null,
-    contract: null
-  }
+  state = {eth: null, accounts: null}
 
   async componentDidMount() {
     try {
       const eth = await getWeb3()
       const accounts = await getAccounts(eth)
-      // const contract = await getContract(eth, contractDefinition)
-      this.setState({eth, accounts}) //, contract})
+      this.setState({eth, accounts})
     } catch (error) {
       console.error(error)
     }
   }
 
   render() {
-    const {eth, accounts, contract, error} = this.state
-    return this.props.children
+    const {eth, accounts} = this.state
+    return <Fragment>
+      {React.Children.map(this.props.children, child => React.cloneElement(child, {eth, accounts}))}
+    </Fragment>
   }
 }

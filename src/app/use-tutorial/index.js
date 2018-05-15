@@ -12,13 +12,11 @@ export class UseTutorial extends Component {
   componentDidUpdate() {
     if (!this.state.hasMM && this.props.eth && !this.state.hasMetaMask
       && window.web3.currentProvider.isMetaMask) {
-      console.log(this.state)
       this.setState({hasMetaMask: true})
     }
   }
 
   render() {
-    console.log(this.state)
     const web3Routes = [
       <Route path='/basics/you-need-MetaMask' key={`route-${0}`}
              render={() => <YouNeedMetaMask {...this.props} hasMetaMask={this.state.hasMetaMask}/>}/>
@@ -47,7 +45,7 @@ export class UseTutorial extends Component {
       web3Routes.push(<Route path='/advanced/security' key={`route-${web3Routes.length}`}
                              render={() => <Do {...this.props} />}/>)
     } else {
-      web3Routes.push(<Route path='/advanced/security' key={`route-${web3Routes.length}`}
+      web3Routes.push(<Route path='/' key={`route-${web3Routes.length}`}
                              render={() => <Do {...this.props} />}/>)
     }
     return (
