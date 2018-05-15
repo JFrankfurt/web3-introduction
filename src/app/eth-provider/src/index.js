@@ -1,28 +1,55 @@
-import React, {Component, Fragment} from 'react'
-// import getContract from './getContract'
-import getAccounts from './getAccounts'
-import getWeb3 from './getWeb3'
+import React, {Component} from 'react';
+import hoistNonReactStatic from 'hoist-non-react-statics'
+import getContract from "./getContract";
+import getAccounts from "./getAccounts";
+import getWeb3 from "./getWeb3";
 
-export class EthProvider extends Component {
-  static defaultProps = {
-    network: 'Rinkeby',
+export function EthProvider(Component) {
+  function Wrapper(props, context) {
+    const {innerRef, ...remainingProps} = props
+    return <WithWeb3
+      render={props =>
+        <Component
+          {...remainingProps}
+          {...props}
+          ref={innerRef}/>
+      }
+    />
   }
-  state = {eth: null, accounts: null}
+  Wrapper.displayName = `withWeb3(${Component.displayName})`
+  Wrapper.WrappedComponent = Component
+  hoistNonReactStatic(Wrapper, Component)
+  return Wrapper
+}
+
+class WithWeb3 extends Component {
+  static defaultProps = {
+    contractDefinitions: [],
+    network: 'Kovan',
+    renderLoading: () => <div>modal</div>
+  };
+  state = {
+    error: null,
+    web3: null,
+    accounts: null,
+    contract: null
+  };
 
   async componentDidMount() {
     try {
-      const eth = await getWeb3()
-      const accounts = await getAccounts(eth)
-      this.setState({eth, accounts})
+      const web3 = await getWeb3();
+      const accounts = await getAccounts(web3);
+      const contract = await getContract(web3, this.props.contractDefinitions);
+      this.setState({web3, accounts, contract})
     } catch (error) {
       console.error(error)
     }
   }
 
   render() {
-    const {eth, accounts} = this.state
-    return <Fragment>
-      {React.Children.map(this.props.children, child => React.cloneElement(child, {eth, accounts}))}
-    </Fragment>
+    const {web3, accounts, contract, error} = this.state;
+    return web3 && accounts
+      ? this.props.render({accounts, contract, error, web3})
+      : this.props.renderLoading()
   }
 }

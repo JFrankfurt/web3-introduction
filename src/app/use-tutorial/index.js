@@ -17,6 +17,7 @@ export class UseTutorial extends Component {
   }
 
   render() {
+    console.log(this.props)
     const web3Routes = [
       <Route path='/basics/you-need-MetaMask' key={`route-${0}`}
              render={() => <YouNeedMetaMask {...this.props} hasMetaMask={this.state.hasMetaMask}/>}/>

@@ -1,9 +1,13 @@
+import "core-js/modules/es6.object.assign";
+import "core-js/modules/es6.array.index-of";
+import "core-js/modules/web.dom.iterable";
+import "core-js/modules/es6.array.iterator";
+import "core-js/modules/es6.object.keys";
 import "core-js/modules/es7.symbol.async-iterator";
 import "core-js/modules/es6.symbol";
 import "core-js/modules/es6.promise";
 import "core-js/modules/es6.object.set-prototype-of";
 import "core-js/modules/es6.object.define-property";
-import "core-js/modules/es6.array.map";
 import "regenerator-runtime/runtime";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -28,37 +32,64 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import React, { Component, Fragment } from 'react'; // import getContract from './getContract'
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import getAccounts from './getAccounts';
-import getWeb3 from './getWeb3';
-export var EthProvider =
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+import React, { Component } from 'react';
+import hoistNonReactStatic from 'hoist-non-react-statics';
+import getContract from "./getContract";
+import getAccounts from "./getAccounts";
+import getWeb3 from "./getWeb3";
+export function EthProvider(Component) {
+  function Wrapper(props, context) {
+    var innerRef = props.innerRef,
+        remainingProps = _objectWithoutProperties(props, ["innerRef"]);
+
+    return React.createElement(WithWeb3, {
+      render: function render(props) {
+        return React.createElement(Component, _extends({}, remainingProps, props, {
+          ref: innerRef
+        }));
+      }
+    });
+  }
+
+  Wrapper.displayName = "withWeb3(".concat(Component.displayName, ")");
+  Wrapper.WrappedComponent = Component;
+  hoistNonReactStatic(Wrapper, Component);
+  return Wrapper;
+}
+
+var WithWeb3 =
 /*#__PURE__*/
 function (_Component) {
-  function EthProvider() {
+  function WithWeb3() {
     var _getPrototypeOf2;
 
     var _temp, _this;
 
-    _classCallCheck(this, EthProvider);
+    _classCallCheck(this, WithWeb3);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(EthProvider)).call.apply(_getPrototypeOf2, [this].concat(args))), _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
-      eth: null,
-      accounts: null
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(WithWeb3)).call.apply(_getPrototypeOf2, [this].concat(args))), _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
+      error: null,
+      web3: null,
+      accounts: null,
+      contract: null
     }), _temp));
   }
 
-  _createClass(EthProvider, [{
+  _createClass(WithWeb3, [{
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee() {
-        var eth, accounts;
+        var web3, accounts, contract;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -68,30 +99,36 @@ function (_Component) {
                 return getWeb3();
 
               case 3:
-                eth = _context.sent;
+                web3 = _context.sent;
                 _context.next = 6;
-                return getAccounts(eth);
+                return getAccounts(web3);
 
               case 6:
                 accounts = _context.sent;
+                _context.next = 9;
+                return getContract(web3, this.props.contractDefinitions);
+
+              case 9:
+                contract = _context.sent;
                 this.setState({
-                  eth: eth,
-                  accounts: accounts
+                  web3: web3,
+                  accounts: accounts,
+                  contract: contract
                 });
-                _context.next = 13;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 13:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 10]]);
+        }, _callee, this, [[0, 13]]);
       }));
 
       return function componentDidMount() {
@@ -102,22 +139,28 @@ function (_Component) {
     key: "render",
     value: function render() {
       var _this$state = this.state,
-          eth = _this$state.eth,
-          accounts = _this$state.accounts;
-      return React.createElement(Fragment, null, React.Children.map(this.props.children, function (child) {
-        return React.cloneElement(child, {
-          eth: eth,
-          accounts: accounts
-        });
-      }));
+          web3 = _this$state.web3,
+          accounts = _this$state.accounts,
+          contract = _this$state.contract,
+          error = _this$state.error;
+      return web3 && accounts ? this.props.render({
+        accounts: accounts,
+        contract: contract,
+        error: error,
+        web3: web3
+      }) : this.props.renderLoading();
     }
   }]);
 
-  _inherits(EthProvider, _Component);
+  _inherits(WithWeb3, _Component);
 
-  return EthProvider;
+  return WithWeb3;
 }(Component);
 
-_defineProperty(EthProvider, "defaultProps", {
-  network: 'Rinkeby'
+_defineProperty(WithWeb3, "defaultProps", {
+  contractDefinitions: [],
+  network: 'Kovan',
+  renderLoading: function renderLoading() {
+    return React.createElement("div", null, "modal");
+  }
 });
