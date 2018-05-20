@@ -36,11 +36,11 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
-import getContract from "./getContract";
-import getAccounts from "./getAccounts";
-import getWeb3 from "./getWeb3";
+import getContract from './getContract';
+import getAccounts from './getAccounts';
+import getWeb3 from './getWeb3';
 export function EthProvider(Component) {
   function Wrapper(props, context) {
     var innerRef = props.innerRef,
@@ -161,6 +161,24 @@ _defineProperty(WithWeb3, "defaultProps", {
   contractDefinitions: [],
   network: 'Kovan',
   renderLoading: function renderLoading() {
-    return React.createElement("div", null, "modal");
+    return React.createElement("div", {
+      style: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        display: 'flex',
+        height: '100vh',
+        justifyContent: 'center',
+        position: 'fixed',
+        width: '100vw',
+        zIndex: 9
+      }
+    }, React.createElement("div", {
+      style: {
+        backgroundColor: 'white',
+        height: '50vh',
+        padding: 12,
+        width: '50vh'
+      }
+    }, "inline metamask installation"));
   }
 });
