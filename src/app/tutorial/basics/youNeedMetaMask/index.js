@@ -3,7 +3,7 @@ import {css} from 'aphrodite'
 import {styles} from './styles'
 import contentStyles from '../../../content-styles'
 
-export const YouNeedMetaMask = () =>
+export const WhyYouNeedMetaMask = () =>
   <div className={css(styles.root)}>
     <div className={css(contentStyles.root)}>
       <h1 className={css(contentStyles.h1)}>content</h1>

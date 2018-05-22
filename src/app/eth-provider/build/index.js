@@ -1,3 +1,4 @@
+import "core-js/modules/es6.string.link";
 import "core-js/modules/es6.object.assign";
 import "core-js/modules/es6.array.index-of";
 import "core-js/modules/web.dom.iterable";
@@ -37,10 +38,12 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 import React, { Component, Fragment } from 'react';
+import { css } from 'aphrodite';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import getContract from './getContract';
 import getAccounts from './getAccounts';
 import getWeb3 from './getWeb3';
+import { styles } from './styles';
 export function EthProvider(Component) {
   function Wrapper(props, context) {
     var innerRef = props.innerRef,
@@ -80,12 +83,6 @@ function (_Component) {
       web3: null,
       accounts: null,
       contract: null
-    }), _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "installChrome", function () {
-      chrome.webstore.install("https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn", function () {
-        return console.log('MetaMask install succeeded');
-      }, function () {
-        return console.warn('MetaMask install failed');
-      });
     }), _temp));
   }
 
@@ -168,23 +165,25 @@ _defineProperty(WithWeb3, "defaultProps", {
   network: 'Kovan',
   renderLoading: function renderLoading(render) {
     return React.createElement(Fragment, null, React.createElement("div", {
-      style: {
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        display: 'flex',
-        height: '100vh',
-        justifyContent: 'center',
-        position: 'fixed',
-        width: '100vw',
-        zIndex: 9
-      }
+      className: css(styles.overlay)
     }, React.createElement("div", {
-      style: {
-        backgroundColor: 'white',
-        height: '50vh',
-        padding: 12,
-        width: '50vh'
-      }
-    }, React.createElement("p", null, "Install for Chrome"), React.createElement("p", null, "Install for Firefox"))), render({}));
+      className: css(styles.modal)
+    }, React.createElement("h2", {
+      className: css(styles.title)
+    }, "The MetaMask browser extension is required to use this site."), React.createElement("div", {
+      className: css(styles.details)
+    }, "[what/why content]"), React.createElement("div", {
+      className: css(styles.fox)
+    }, "[fox animation]"), React.createElement("div", {
+      className: css(styles.linkContainer)
+    }, React.createElement("a", {
+      className: css(styles.link),
+      target: "_blank",
+      href: "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
+    }, "Install for Chrome"), React.createElement("a", {
+      className: css(styles.link),
+      target: "_blank",
+      href: "https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/"
+    }, "Install for Firefox")))), render({}));
   }
 });

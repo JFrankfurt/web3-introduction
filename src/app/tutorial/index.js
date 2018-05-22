@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {css} from 'aphrodite'
 import {styles} from './styles'
 import {Route, Switch} from 'react-router-dom'
-import {Do, Eth, How, YouNeedMetaMask} from './basics/index'
+import {Do, Eth, How, WhyYouNeedMetaMask} from './basics/index'
 import {Contracts} from './advanced/contracts'
 import {Tokens} from './advanced/tokens'
 import {Transactions} from './advanced/transactions'
@@ -27,7 +27,7 @@ export class Tutorial extends Component {
     return (
       <div className={css(styles.root)}>
         <Switch>
-          <Route path='/basics/you-need-MetaMask' render={() => <YouNeedMetaMask {...this.props} />}/>,
+          <Route path='/basics/why-you-need-MetaMask' render={() => <WhyYouNeedMetaMask {...this.props} />}/>,
           <Route path='/basics/how' render={() => <How {...this.props} />}/>
           <Route path='/basics/eth' render={() => <Eth {...this.props} />}/>
           <Route path='/basics/do' render={() => <Do {...this.props} />}/>
@@ -38,7 +38,7 @@ export class Tutorial extends Component {
           <Route path='/advanced/signing' render={() => <Signing {...this.props} />}/>
           <Route path='/advanced/testnet' render={() => <TestNet {...this.props} />}/>
           <Route path='/advanced/security' render={() => <Security {...this.props} />}/>
-          <Route path='/' render={() => <YouNeedMetaMask {...this.props} hasMetaMask={this.state.hasMetaMask}/>}/>,
+          <Route path='/' render={() => <WhyYouNeedMetaMask {...this.props} hasMetaMask={this.state.hasMetaMask}/>}/>,
         </Switch>
       </div>
     )
