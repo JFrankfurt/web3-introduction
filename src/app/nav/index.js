@@ -15,8 +15,8 @@ export class Nav extends Component {
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/basics/you-need-MetaMask'>
-                You need MetaMask
+                       to='/basics/why-you-need-MetaMask'>
+                Why you need MetaMask
               </NavLink>
             </li>
             <li>

@@ -1,10 +1,10 @@
 import {Do} from './do'
 import {Eth} from './eth'
 import {How} from './how'
-import {YouNeedMetaMask} from './youNeedMetaMask'
+import {WhyYouNeedMetaMask} from './youNeedMetaMask'
 
 export {
-  YouNeedMetaMask,
+  WhyYouNeedMetaMask,
   How,
   Eth,
   Do,

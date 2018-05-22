@@ -1,8 +1,10 @@
 import React, {Component, Fragment} from 'react'
+import {css} from 'aphrodite'
 import hoistNonReactStatic from 'hoist-non-react-statics'
 import getContract from './getContract'
 import getAccounts from './getAccounts'
 import getWeb3 from './getWeb3'
+import {styles} from './styles'
 
 export function EthProvider(Component) {
   function Wrapper(props, context) {
@@ -22,26 +24,31 @@ class WithWeb3 extends Component {
   static defaultProps = {
     contractDefinitions: [],
     network: 'Kovan',
-    renderLoading: (render) =>
+    renderLoading: render =>
       <Fragment>
-        <div style={{
-          alignItems: 'center',
-          backgroundColor: 'rgba(0,0,0,0.7)',
-          display: 'flex',
-          height: '100vh',
-          justifyContent: 'center',
-          position: 'fixed',
-          width: '100vw',
-          zIndex: 9
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            height: '50vh',
-            padding: 12,
-            width: '50vh',
-          }}>
-            <p>Install for Chrome</p>
-            <p>Install for Firefox</p>
+        <div className={css(styles.overlay)}>
+          <div className={css(styles.modal)}>
+            <h2 className={css(styles.title)}>
+              The MetaMask browser extension is required to use this site.
+            </h2>
+            <div className={css(styles.details)}>
+              [what/why content]
+            </div>
+            <div className={css(styles.fox)}>
+              [fox animation]
+            </div>
+            <div className={css(styles.linkContainer)}>
+              <a className={css(styles.link)}
+                 target="_blank"
+                 href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">
+                Install for Chrome
+              </a>
+              <a className={css(styles.link)}
+                 target="_blank"
+                 href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/">
+                Install for Firefox
+              </a>
+            </div>
           </div>
         </div>
         {render({})}
@@ -64,14 +71,6 @@ class WithWeb3 extends Component {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  installChrome = () => {
-    chrome.webstore.install(
-      "https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn",
-      () => console.log('MetaMask install succeeded'),
-      () => console.warn('MetaMask install failed')
-    )
   }
 
   render() {
