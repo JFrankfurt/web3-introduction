@@ -80,6 +80,12 @@ function (_Component) {
       web3: null,
       accounts: null,
       contract: null
+    }), _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "installChrome", function () {
+      chrome.webstore.install("https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn", function () {
+        return console.log('MetaMask install succeeded');
+      }, function () {
+        return console.warn('MetaMask install failed');
+      });
     }), _temp));
   }
 
@@ -148,7 +154,7 @@ function (_Component) {
         contract: contract,
         error: error,
         web3: web3
-      }) : this.props.renderLoading();
+      }) : this.props.renderLoading(this.props.render);
     }
   }]);
 
@@ -160,8 +166,8 @@ function (_Component) {
 _defineProperty(WithWeb3, "defaultProps", {
   contractDefinitions: [],
   network: 'Kovan',
-  renderLoading: function renderLoading() {
-    return React.createElement("div", {
+  renderLoading: function renderLoading(render) {
+    return React.createElement(Fragment, null, React.createElement("div", {
       style: {
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.7)',
@@ -179,6 +185,6 @@ _defineProperty(WithWeb3, "defaultProps", {
         padding: 12,
         width: '50vh'
       }
-    }, "inline metamask installation"));
+    }, React.createElement("p", null, "Install for Chrome"), React.createElement("p", null, "Install for Firefox"))), render({}));
   }
 });

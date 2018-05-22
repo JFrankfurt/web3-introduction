@@ -3,9 +3,9 @@ import {css} from 'aphrodite'
 import {styles} from './styles'
 import contentStyles from '../../../content-styles'
 
-export const Do = () =>
+export const Security = () =>
   <div className={css(styles.root)}>
-    Do test
+    end-user security
     <div className={css(contentStyles.root)}>
       <h1 className={css(contentStyles.h1)}>content</h1>
       <h2 className={css(contentStyles.h2)}>content</h2>
