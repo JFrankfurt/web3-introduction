@@ -7,10 +7,10 @@ import {Tutorial} from './tutorial'
 import {Nav} from './nav'
 import styles from './styles'
 
-const WithWeb3 = EthProvider(() =>
+const WithWeb3 = EthProvider(props =>
   <div className={css(styles.root)}>
     <Nav />
-    <Tutorial />
+    <Tutorial {...props}/>
   </div>
 )
 

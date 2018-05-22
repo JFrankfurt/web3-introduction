@@ -15,23 +15,31 @@ export class Nav extends Component {
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/basics/you-need-MetaMask'>You need MetaMask</NavLink></li>
+                       to='/basics/you-need-MetaMask'>
+                You need MetaMask
+              </NavLink>
+            </li>
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/basics/why'>Why you need it</NavLink></li>
+                       to='/basics/how'>
+                How it works
+              </NavLink>
+            </li>
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/basics/how'>How it works</NavLink></li>
+                       to='/basics/eth'>
+                Get some free money
+              </NavLink>
+            </li>
             <li>
               <NavLink className={css(styles.navLink)}
                        activeClassName={css(styles.activeNavLink)}
-                       to='/basics/eth'>Get some free money</NavLink></li>
-            <li>
-              <NavLink className={css(styles.navLink)}
-                       activeClassName={css(styles.activeNavLink)}
-                       to='/basics/do'>Do shit</NavLink></li>
+                       to='/basics/do'>
+                Do shit
+              </NavLink>
+            </li>
           </ol>
         </nav>
         <h2>Advanced</h2>

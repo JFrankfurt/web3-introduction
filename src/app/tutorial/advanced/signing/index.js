@@ -3,9 +3,9 @@ import {css} from 'aphrodite'
 import {styles} from './styles'
 import contentStyles from '../../../content-styles'
 
-export const Do = () =>
+export const Signing = () =>
   <div className={css(styles.root)}>
-    Do test
+    What does it mean to sign?
     <div className={css(contentStyles.root)}>
       <h1 className={css(contentStyles.h1)}>content</h1>
       <h2 className={css(contentStyles.h2)}>content</h2>

@@ -22,26 +22,30 @@ class WithWeb3 extends Component {
   static defaultProps = {
     contractDefinitions: [],
     network: 'Kovan',
-    renderLoading: () =>
-      <div style={{
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        display: 'flex',
-        height: '100vh',
-        justifyContent: 'center',
-        position: 'fixed',
-        width: '100vw',
-        zIndex: 9
-      }}>
+    renderLoading: (render) =>
+      <Fragment>
         <div style={{
-          backgroundColor: 'white',
-          height: '50vh',
-          padding: 12,
-          width: '50vh',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          height: '100vh',
+          justifyContent: 'center',
+          position: 'fixed',
+          width: '100vw',
+          zIndex: 9
         }}>
-          inline metamask installation
+          <div style={{
+            backgroundColor: 'white',
+            height: '50vh',
+            padding: 12,
+            width: '50vh',
+          }}>
+            <p>Install for Chrome</p>
+            <p>Install for Firefox</p>
+          </div>
         </div>
-      </div>
+        {render({})}
+      </Fragment>
 
   }
   state = {
@@ -62,10 +66,18 @@ class WithWeb3 extends Component {
     }
   }
 
+  installChrome = () => {
+    chrome.webstore.install(
+      "https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn",
+      () => console.log('MetaMask install succeeded'),
+      () => console.warn('MetaMask install failed')
+    )
+  }
+
   render() {
     const {web3, accounts, contract, error} = this.state
     return web3 && accounts
       ? this.props.render({accounts, contract, error, web3})
-      : this.props.renderLoading()
+      : this.props.renderLoading(this.props.render)
   }
 }
